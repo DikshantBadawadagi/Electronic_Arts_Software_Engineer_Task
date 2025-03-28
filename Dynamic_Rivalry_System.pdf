@@ -1,0 +1,62 @@
+digraph DynamicRivalrySystem {
+	RivalryManager [label="RivalryManager
+- rivalries: List<Rivalry>
+- matchHistory: List<Match>
+
++ createRivalry(team1, team2)
++ updateRivalry(matchResult)
++ calculateIntensity(rivalry)"]
+	Rivalry [label="Rivalry
+- team1: Team
+- team2: Team
+- intensity: int
+- triggerEvents: List<Event>
+
++ increaseIntensity(event)
++ decreaseIntensity(event)
++ getRivalryStatus()"]
+	Team [label="Team
+- name: str
+- players: List<Player>
+- coach: Coach
+- fans: Fanbase
+
++ addPlayer(player)
++ updateMorale(result)"]
+	Match [label="Match
+- homeTeam: Team
+- awayTeam: Team
+- score: dict
+- highlightEvents: List<Event>
+
++ addEvent(event)
++ determineWinner()"]
+	Event [label="Event
+- eventType: str
+- impactLevel: int
+
++ getImpactLevel()"]
+	Player [label="Player
+- name: str
+- position: str
+- stats: dict
+
++ updateStats(gamePerformance)"]
+	Coach [label="Coach
+- name: str
+- tactics: str
+
++ adjustStrategy(rivalryStatus)"]
+	Fanbase [label="Fanbase
+- size: int
+- morale: int
+
++ increaseMorale(winStreak)
++ decreaseMorale(losingStreak)"]
+	RivalryManager -> Rivalry [label="1:N"]
+	Rivalry -> Team [label="1:2"]
+	Match -> Event [label="1:N"]
+	Team -> Player [label="1:N"]
+	Team -> Coach [label="1:1"]
+	Team -> Fanbase [label="1:1"]
+}
